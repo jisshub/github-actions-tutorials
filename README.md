@@ -71,5 +71,51 @@ this explains the basic concept of github actions.
 ### Build a workflow for our java gradle application
 
 - first navigate to **Actions** in remote repository.
+- choose **Java With Gradle** option.
+- Opens a _gradle.yml_ file which is the _workflow file_.
 
-time: 12:30
+#### Syntax of Workflow file
+
+```yaml
+# This workflow will build a Java project with Gradle
+# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-gradle
+
+name: Java CI with Gradle
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK 1.8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+      - name: Build with Gradle
+        run: ./gradlew build
+```
+
+- **name**: name of workflow which is optional.
+- **on**: contains events that triggers the workflow.
+- **jobs**: actiosn to be executed when an event happens.
+
+  - **steps**: run commands, set up tasks or run an action.
+  - **uses** - selects an _action_. here _checkout_ is the action to be executed. _v2_ is its version.
+    eg: _actions/checkout@v2_ . actions are available in _uses attribute_
+
+  (Checkout Action yaml file)[https://github.com/actions/checkout/blob/main/action.yml]
+
+---
+
+time: 17:20
+
+---
