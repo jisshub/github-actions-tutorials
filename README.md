@@ -110,7 +110,7 @@ jobs:
 
   - **steps**: run commands, set up tasks or run an action.
   - **uses** - selects an _action_. here _checkout_ is the action to be executed. _v2_ is its version.
-    eg: _actions/checkout@v2_ . actions are available in _uses attribute_
+    eg: _actions/checkout@v2_ . actions are available in the _uses attribute_
 
   (Checkout Action yaml file)[https://github.com/actions/checkout/blob/main/action.yml]
 
