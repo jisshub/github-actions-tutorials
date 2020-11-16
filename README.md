@@ -105,7 +105,7 @@ jobs:
 ```
 
 - **name**: name of workflow which is optional.
-- **on**: contains events that triggers the workflow.
+- **on**: contains events that triggers the workflow, eg: push, pull request
 - **jobs**: actiosn to be executed when an event happens.
 
   - **steps**: run commands, set up tasks or run an action.
@@ -114,8 +114,19 @@ jobs:
 
   (Checkout Action yaml file)[https://github.com/actions/checkout/blob/main/action.yml]
 
----
+  - **uses: actions/setup-java@v1
+    with:
+    java-version: 1.8**
 
-time: 17:20
+    > another action to setup java with version 1.8. thus v dont have to install/configure java in our machines.
+
+  - **run** : attribute to run a linux command.
+    Eg:
+    1. **run: chmod +x gradlew** - change permission of gradle file.
+    2. **run: ./gradlew build** - build gradle
+
+> all these things are done in same environment.
+
+time: 18: 45
 
 ---
