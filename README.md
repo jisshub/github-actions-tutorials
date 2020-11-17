@@ -180,6 +180,12 @@ jobs:
   - then apply this change.
   - naivgate to github/workflows, open yml file.
 
-_time: 24: 30_
-
 ---
+
+## build docker image and push to private repo.
+
+- next take java artifact file and build a docker image from it.
+- first create an account in dockerhub.
+- create a repository.
+- to this repository, we push the docker image.
+- 
