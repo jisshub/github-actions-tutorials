@@ -188,4 +188,45 @@ jobs:
 - first create an account in dockerhub.
 - create a repository.
 - to this repository, we push the docker image.
-- 
+
+**yaml**
+
+```yml
+ name: Build and Push Docker Image
+      uses: mr-smithers-excellent/docker-build-push@v4
+      with:
+        image: jissmonjose/java-demo-app
+        registry: docker.io
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+```
+
+- change the value of _image_ attribute to
+  _dockerid/repository_.
+
+- change the _username_ and _password_.
+
+- next we have to create new _secrets_.
+
+  1. Navigate to settings > secrets > New repository secret.
+  2. Create secrets for both _DOCKER_USERNAME_ and _DOCKER_PASSWORD_.
+  3. after setting the secrets we can reference those _secrets_ from our workflow file.
+  4. copy the code from _ci.yml_ file to _ci.yml_ file in remote repo.
+  5. commit direclty to master branch.
+  6. later click on _Actions_ - select workflow - click _build_
+
+  ![image](./screenshots/screen4.jpg)
+
+  7. go to dockerhub repository _jissmonjose/java-demo-app_ and refresh.
+
+- you can see a new tag far java application. which is the default tag given by the action to the docker image.
+
+  ![image](./screenshots/screen5.jpg)
+
+Thus v build a java artifcact, docker image, pushed the image to dockerhub repository.
+
+**Sreenshot**
+
+![image](./screenshots/screen6.jpg)
+
+---
