@@ -106,7 +106,7 @@ jobs:
 
 - **name**: name of workflow which is optional.
 - **on**: contains events that triggers the workflow, eg: push, pull request
-- **jobs**: actiosn to be executed when an event happens.
+- **jobs**: actions to be executed when an event happens.
 
   - **steps**: run commands, set up tasks or run an action.
   - **uses** - selects an _action_. here _checkout_ is the action to be executed. _v2_ is its version.
@@ -127,6 +127,59 @@ jobs:
 
 > all these things are done in same environment.
 
-time: 18: 45
+- rename _gradle.yml_ file to any other name.
+- then create a new branch - create a pull requet to master branch.
+- click on _build_.
+
+![](./screenshots/screen3.jpg)
+
+1. **Set Up Job**: prepares the job environment.
+2. **Post Run action**: things get cleaned up afetr all setup.
+
+---
+
+## where does these jobs gets executed?
+
+1. workflows on github action gets executed on _github servers_. ie. workflows r managed by github.
+
+2. whenever v create a workflow with a set of jobs. each job in that workflow runs in a fresh github server. so one job runs on a single server at a time. but these jobs runs in parallel by default. we can overwrite these by setting _needs_ attribute.
+
+```yaml
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK 1.8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+      - name: Build with Gradle
+        run: ./gradlew build
+
+  publish:
+    needs: build
+```
+
+- thus here _publish_ job waits for _build_ to finish execution. in _needs_ attribute we specify _build_ as value.
+  thus overriding the default parallel running.
+
+  **runs-on: ubuntu-latest** : github server runs on _Ubuntu_, _Windows_ and _macOS_. for example, if v ships our app to customers having all 3 OS. so first we can test all commits to master branch on all 3 OS.
+  make some changes in _runs-on attribute_.
+
+  ```yaml
+  runs-on: ${{matrix.os}}
+    strategy:
+      matrix:
+      os: [ubuntu-latest, windows-latest, macOS-latest]
+  ```
+
+  - then apply this change.
+  - naivgate to github/workflows, open yml file.
+
+_time: 24: 30_
 
 ---
